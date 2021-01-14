@@ -2,6 +2,7 @@ package me.henrique.tddlibraryjava.api.resources;
 
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
 import me.henrique.tddlibraryjava.api.exception.ApiErrors;
+import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -38,5 +39,11 @@ public class BookController {
     public ApiErrors handleValidationException(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
         return new ApiErrors(bindingResult);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleBusinessException(BusinessException ex) {
+        return new ApiErrors(ex);
     }
 }
