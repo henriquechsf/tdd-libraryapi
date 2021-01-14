@@ -1,14 +1,18 @@
 package me.henrique.tddlibraryjava.api.resource;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
+import me.henrique.tddlibraryjava.model.entity.Book;
+import me.henrique.tddlibraryjava.service.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -34,15 +38,19 @@ public class BookControllerTest {
     @Autowired
     MockMvc mvc;
 
+    // mock que simula o service
+    @MockBean
+    BookService service;
+
     @Test
     @DisplayName("Deve criar um livro com sucesso")
     public void createBookTest() throws Exception {
 
-        BookDTO dto = BookDTO.builder()
-                .author("Artur")
-                .title("As aventuras")
-                .isbn("001")
-                .build();
+        BookDTO dto = BookDTO.builder().author("Artur").title("As aventuras").isbn("001").build();
+
+        Book savedBook = Book.builder().id(10L).author("Artur").title("As aventuras").isbn("001").build();
+
+        BDDMockito.given(service.save(Mockito.any(Book.class))).willReturn(savedBook);
 
         String json = new ObjectMapper().writeValueAsString(dto);
 
