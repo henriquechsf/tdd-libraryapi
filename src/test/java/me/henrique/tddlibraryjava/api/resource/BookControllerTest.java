@@ -45,7 +45,6 @@ public class BookControllerTest {
     @MockBean
     BookService service;
 
-    // teste de integridade
     @Test
     @DisplayName("Deve criar um livro com sucesso")
     public void createBookTest() throws Exception {
@@ -73,7 +72,6 @@ public class BookControllerTest {
         ;
     }
 
-    // teste de integridade
     @Test
     @DisplayName("Deve lançar erro de validação quando não houver dados suficientes para a criação de um livro")
     public void createInvalidBookTest() throws Exception {

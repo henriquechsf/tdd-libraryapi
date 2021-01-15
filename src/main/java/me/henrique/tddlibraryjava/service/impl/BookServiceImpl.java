@@ -1,5 +1,6 @@
 package me.henrique.tddlibraryjava.service.impl;
 
+import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.repository.BookRepository;
 import me.henrique.tddlibraryjava.service.BookService;
@@ -16,6 +17,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(Book book) {
+        if (repository.existsByIsbn(book.getIsbn())) {
+            throw new BusinessException("ISBN já cadastrado");
+        }
+
         return repository.save(book);
     }
 }
