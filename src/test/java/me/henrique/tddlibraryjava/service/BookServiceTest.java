@@ -74,7 +74,7 @@ public class BookServiceTest {
                 .isInstanceOf(BusinessException.class)
                 .hasMessage("ISBN já cadastrado");
 
-        // verifica se o metodo save não realmente não foi chamado
+        // verifica se o metodo save realmente não foi chamado
         Mockito.verify(repository, Mockito.never()).save(book);
     }
 

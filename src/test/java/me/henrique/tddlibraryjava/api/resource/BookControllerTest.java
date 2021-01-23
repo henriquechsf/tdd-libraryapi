@@ -97,6 +97,7 @@ public class BookControllerTest {
         BookDTO dto = createNewBook();
         String json = new ObjectMapper().writeValueAsString(dto);
         String mensagemErro = "ISBN já cadastrado";
+
         BDDMockito.given(service.save(Mockito.any(Book.class))).willThrow(new BusinessException(mensagemErro));
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
