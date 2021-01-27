@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 // TESTE DE INTEGRAÇÃO COM A BASE DE DADOS
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -29,7 +31,7 @@ public class BookRepositoryTest {
     public void returnTrueWhenIsbnExists() {
         // cenario
         String isbn = "123";
-        Book book = Book.builder().title("Aventuras").author("Fulano").isbn(isbn).build();
+        Book book = createNewBook(isbn);
         // simula uma persistencia na base de dados
         entityManager.persist(book);
 
@@ -51,5 +53,23 @@ public class BookRepositoryTest {
 
         // verificação
         Assertions.assertThat(exists).isFalse();
+    }
+
+    @Test
+    @DisplayName("Deve obter um livro por ID")
+    public void findByIdTest() {
+        // given
+        Book book = createNewBook("123");
+        entityManager.persist(book);
+
+        // when
+        Optional<Book> foundBook = repository.findById(book.getId());
+
+        // then
+        Assertions.assertThat(foundBook.isPresent()).isTrue();
+    }
+
+    private Book createNewBook(String isbn) {
+        return Book.builder().title("Aventuras").author("Fulano").isbn(isbn).build();
     }
 }
