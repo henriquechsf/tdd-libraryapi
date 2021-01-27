@@ -69,6 +69,35 @@ public class BookRepositoryTest {
         Assertions.assertThat(foundBook.isPresent()).isTrue();
     }
 
+    @Test
+    @DisplayName("Deve salvar um livro")
+    public void saveBookTest() {
+        Book book = createNewBook("123");
+
+        Book savedBook = repository.save(book);
+
+        Assertions.assertThat(savedBook.getId()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Deve deletar um livro")
+    public void deleteBookTest() {
+        // criado um livro
+       Book book = createNewBook("123");
+
+       // simulação de persitencia na base
+       entityManager.persist(book);
+
+       // simula uma busca na base
+        Book foundBook = entityManager.find(Book.class, book.getId());
+        // deletado da base
+        repository.delete(foundBook);
+
+        // busca novamente e valida se realmente está nulo
+        Book deletedBook = entityManager.find(Book.class, book.getId());
+        Assertions.assertThat(deletedBook).isNull();
+    }
+
     private Book createNewBook(String isbn) {
         return Book.builder().title("Aventuras").author("Fulano").isbn(isbn).build();
     }
