@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 // cria os getter setters, toString, hashCode Equals
 @Data
@@ -28,4 +29,9 @@ public class Book {
 
     @Column
     private String isbn;
+
+    // Lazy - não busca as relações na base - DEFAULT
+    // Eager - busca todas as relações na base
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    private List<Loan> loans;
 }

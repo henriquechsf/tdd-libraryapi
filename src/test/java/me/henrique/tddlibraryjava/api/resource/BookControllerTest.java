@@ -2,6 +2,7 @@ package me.henrique.tddlibraryjava.api.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
+import me.henrique.tddlibraryjava.api.resources.BookController;
 import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.service.BookService;
@@ -34,7 +35,7 @@ import java.util.Optional;
 // seleciona o ambiente
 @ActiveProfiles("test")
 // testa o comportamento da API
-@WebMvcTest
+@WebMvcTest(controllers = BookController.class)
 // configura um objeto para fazer as requisições
 @AutoConfigureMockMvc
 public class BookControllerTest {
