@@ -1,5 +1,6 @@
 package me.henrique.tddlibraryjava.service;
 
+import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.entity.Loan;
 import me.henrique.tddlibraryjava.model.repository.LoanRepository;
@@ -48,6 +49,7 @@ public class LoanServiceTest {
                 .book(book)
                 .build();
 
+        Mockito.when(repository.existsByBookAndNotReturned(book)).thenReturn(false);
         Mockito.when(repository.save(savingLoan)).thenReturn(savedLoan);
 
         Loan loan = service.save(savingLoan);
@@ -56,5 +58,29 @@ public class LoanServiceTest {
         Assertions.assertThat(loan.getBook()).isEqualTo(savedLoan.getBook());
         Assertions.assertThat(loan.getCustomer()).isEqualTo(savedLoan.getCustomer());
         Assertions.assertThat(loan.getLoanDate()).isEqualTo(savedLoan.getLoanDate());
+    }
+
+    @Test
+    @DisplayName("Deve lançar um erro de negócio ao salvar um empréstimo com livro já emprestado")
+    public void loanedBookSaveTest() {
+        String customer = "Fulano";
+        Book book = Book.builder().id(1L).build();
+
+        Loan savingLoan = Loan.builder()
+                .book(book)
+                .customer(customer)
+                .loanDate(LocalDate.now())
+                .build();
+
+        Mockito.when(repository.existsByBookAndNotReturned(book)).thenReturn(true);
+
+        Throwable exception = Assertions.catchThrowable(() -> service.save(savingLoan));
+
+        Assertions.assertThat(exception)
+                .isInstanceOf(BusinessException.class)
+                .hasMessage("Book already loaned");
+
+        Mockito.verify(repository, Mockito.never()).save(savingLoan);
+
     }
 }
