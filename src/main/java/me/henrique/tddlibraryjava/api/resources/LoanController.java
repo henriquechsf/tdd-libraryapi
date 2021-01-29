@@ -2,6 +2,7 @@ package me.henrique.tddlibraryjava.api.resources;
 
 import lombok.RequiredArgsConstructor;
 import me.henrique.tddlibraryjava.api.dto.LoanDTO;
+import me.henrique.tddlibraryjava.api.dto.ReturnedLoanDTO;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.entity.Loan;
 import me.henrique.tddlibraryjava.service.BookService;
@@ -33,5 +34,13 @@ public class LoanController {
 
         entity = loanService.save(entity);
         return entity.getId();
+    }
+
+    @PatchMapping("{id}")
+    public void returnBook(@PathVariable Long id, @RequestBody ReturnedLoanDTO dto) {
+        Loan loan = loanService.getById(id).get();
+        loan.setReturned(dto.getReturned());
+
+        loanService.update(loan);
     }
 }
