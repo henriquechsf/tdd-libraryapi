@@ -1,9 +1,12 @@
 package me.henrique.tddlibraryjava.service.impl;
 
+import me.henrique.tddlibraryjava.api.dto.LoanFilterDTO;
 import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Loan;
 import me.henrique.tddlibraryjava.model.repository.LoanRepository;
 import me.henrique.tddlibraryjava.service.LoanService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -31,5 +34,10 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Loan update(Loan loan) {
         return repository.save(loan);
+    }
+
+    @Override
+    public Page<Loan> find(LoanFilterDTO filter, Pageable pageable) {
+        return null;
     }
 }

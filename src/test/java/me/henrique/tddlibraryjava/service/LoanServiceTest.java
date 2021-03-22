@@ -126,7 +126,7 @@ public class LoanServiceTest {
     }
 
 
-    private Loan createLoan() {
+    public static Loan createLoan() {
         String customer = "Fulano";
         Book book = Book.builder().id(1L).build();
 
