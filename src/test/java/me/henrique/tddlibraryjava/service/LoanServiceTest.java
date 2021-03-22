@@ -108,8 +108,23 @@ public class LoanServiceTest {
         assertThat(result.get().getLoanDate()).isEqualTo(loan.getLoanDate());
 
         Mockito.verify(repository).findById(id);
-
     }
+
+    @Test
+    @DisplayName("Deve atualizar um empréstimo")
+    public void updateLoanTest() {
+        Loan loan = createLoan();
+        loan.setId(1L);
+        loan.setReturned(true);
+
+        Mockito.when(repository.save(loan)).thenReturn(loan);
+
+        Loan updatedLoan = service.update(loan);
+
+        assertThat(updatedLoan.getReturned()).isTrue();
+        Mockito.verify(repository).save(loan);
+    }
+
 
     private Loan createLoan() {
         String customer = "Fulano";
