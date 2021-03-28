@@ -2,6 +2,7 @@ package me.henrique.tddlibraryjava.service.impl;
 
 import me.henrique.tddlibraryjava.api.dto.LoanFilterDTO;
 import me.henrique.tddlibraryjava.exception.BusinessException;
+import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.entity.Loan;
 import me.henrique.tddlibraryjava.model.repository.LoanRepository;
 import me.henrique.tddlibraryjava.service.LoanService;
@@ -41,5 +42,10 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Page<Loan> find(LoanFilterDTO filter, Pageable pageable) {
         return repository.findByBookIsbnOrCustomer(filter.getIsbn(), filter.getCustomer(), pageable);
+    }
+
+    @Override
+    public Page<Loan> getLoansByBook(Book book, Pageable pageable) {
+        return repository.findByBook(book, pageable);
     }
 }
