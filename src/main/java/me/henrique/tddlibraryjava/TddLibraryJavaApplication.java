@@ -16,11 +16,6 @@ public class TddLibraryJavaApplication {
 		return new ModelMapper();
 	}
 
-	@Scheduled(cron = "0 0 18 1/1 * ?")
-	public void testeAgendamento() {
-		System.out.println("Teste agendadmento de tarefas");
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(TddLibraryJavaApplication.class, args);
 	}
