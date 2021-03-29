@@ -44,7 +44,7 @@ public class LoanRepositoryTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Deve obter um livro pelo isbn ou customer")
     public void findBookIsbnOrCustomerTest() {
         Loan loan = createAndPersistLoan(LocalDate.now());
         Page<Loan> result = repository.findByBookIsbnOrCustomer("123", "Fulano", PageRequest.of(0, 10));

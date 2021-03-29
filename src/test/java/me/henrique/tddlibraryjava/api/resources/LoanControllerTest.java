@@ -1,11 +1,9 @@
-package me.henrique.tddlibraryjava.api.resource;
+package me.henrique.tddlibraryjava.api.resources;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.henrique.tddlibraryjava.api.dto.LoanDTO;
 import me.henrique.tddlibraryjava.api.dto.LoanFilterDTO;
 import me.henrique.tddlibraryjava.api.dto.ReturnedLoanDTO;
-import me.henrique.tddlibraryjava.api.resources.LoanController;
 import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.entity.Loan;
@@ -33,7 +31,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;

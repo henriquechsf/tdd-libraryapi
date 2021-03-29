@@ -1,5 +1,6 @@
 package me.henrique.tddlibraryjava.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import me.henrique.tddlibraryjava.api.dto.LoanFilterDTO;
 import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
@@ -15,12 +16,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class LoanServiceImpl implements LoanService {
-    private LoanRepository repository;
-
-    public LoanServiceImpl(LoanRepository repository) {
-        this.repository = repository;
-    }
+    private final LoanRepository repository;
 
     @Override
     public Loan save(Loan loan) {

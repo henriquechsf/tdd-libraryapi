@@ -7,19 +7,16 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
 import me.henrique.tddlibraryjava.api.dto.LoanDTO;
-import me.henrique.tddlibraryjava.api.exception.ApiErrors;
-import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.model.entity.Loan;
 import me.henrique.tddlibraryjava.service.BookService;
 import me.henrique.tddlibraryjava.service.LoanService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,13 +26,14 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
-@RequiredArgsConstructor // substitui injeção de dependencia pelo construtor
 @Api("Book API")
+@RequiredArgsConstructor
 public class BookController {
 
-    private BookService service;
+    private final BookService service;
+    private final LoanService loanService;
+    @Autowired
     private ModelMapper modelMapper;
-    private LoanService loanService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

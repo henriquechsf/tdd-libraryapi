@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class EmailServiceImpl implements EmailService {
 
     @Value("${application.mail.default-remetent}")

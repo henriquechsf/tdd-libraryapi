@@ -1,8 +1,7 @@
-package me.henrique.tddlibraryjava.api.resource;
+package me.henrique.tddlibraryjava.api.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
-import me.henrique.tddlibraryjava.api.resources.BookController;
 import me.henrique.tddlibraryjava.exception.BusinessException;
 import me.henrique.tddlibraryjava.model.entity.Book;
 import me.henrique.tddlibraryjava.service.BookService;
@@ -30,14 +29,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.Optional;
 
-// cria um mini contexto para rodar os testes
 @ExtendWith(SpringExtension.class)
-// seleciona o ambiente
 @ActiveProfiles("test")
-// testa o comportamento da API
-@WebMvcTest(controllers = BookController.class)
-// configura um objeto para fazer as requisições
 @AutoConfigureMockMvc
+@WebMvcTest(controllers = BookController.class)
 public class BookControllerTest {
 
     // rota da requisição
@@ -45,7 +40,7 @@ public class BookControllerTest {
 
     // mocka as requisições - simula as requisições para a API
     @Autowired
-    MockMvc mvc;
+    private MockMvc mvc;
 
     // mock que simula o service
     @MockBean

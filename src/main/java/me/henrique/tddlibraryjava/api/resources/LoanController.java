@@ -1,6 +1,5 @@
 package me.henrique.tddlibraryjava.api.resources;
 
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import me.henrique.tddlibraryjava.api.dto.BookDTO;
 import me.henrique.tddlibraryjava.api.dto.LoanDTO;
